@@ -142,3 +142,22 @@ function createFolder(dirName: string): Promise<void> {
         });
     });
 }
+
+/**
+ * Uploads a file to S3 at the specified key.
+ *
+ * @param {string} key - The S3 folder path (prefix) for the file.
+ * @param {string} filePath - The local file path (used in constructing the S3 key).
+ * @param {string} content - The file content to upload.
+ * @returns {Promise<void>} Resolves when the file is uploaded.
+ */
+export const saveToS3 = async (key: string, filePath: string, content: string): Promise<void> => {
+    const params = {
+        Bucket: process.env.S3_BUCKET ?? "", // S3 bucket name
+        Key: `${key}${filePath}`,          // Construct the full S3 key
+        Body: content                      // File content
+    };
+
+    // Upload the file to S3
+    await s3.putObject(params).promise();
+};
