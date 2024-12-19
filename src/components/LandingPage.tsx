@@ -103,5 +103,5 @@ export const Landing = () => {
                 {loading ? "Starting ..." : "Start Coding"}
             </StyledButton>
         </Container>
-    )
+    );
 }
